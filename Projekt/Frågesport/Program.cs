@@ -23,7 +23,6 @@ namespace Frågesport
             {
                 Console.WriteLine("Fel svar");
             }
-            break;
 
             // Andra frågan
             Console.WriteLine("Från vilken brittisk stad kommer The Beatles?");
