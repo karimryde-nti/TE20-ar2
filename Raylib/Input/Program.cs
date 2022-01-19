@@ -16,9 +16,10 @@ namespace Bilder
             Raylib.SetTargetFPS(60);
 
             // Skapa en spelare av en rektangel
-            Rectangle spelare = new Rectangle(100, 100, 50, 50);
+            Rectangle spelare = new Rectangle(100, 100, 64, 64);
+            
             // Ladda bild för spelaren
-            Texture2D raket = Raylib.LoadTexture(@"./resurser/raket.png");
+            Texture2D ufo = Raylib.LoadTexture(@"./resurser/ufo.png");
 
             // Animationsloopen
             while (!Raylib.WindowShouldClose())
@@ -31,7 +32,7 @@ namespace Bilder
                 Raylib.ClearBackground(Color.DARKBLUE);
 
                 // Rita ut spelarens bild istället för rektangeln
-                Raylib.DrawTexture(raket, (int)spelare.x, (int)spelare.y, Color.WHITE);
+                Raylib.DrawTexture(ufo, (int)spelare.x, (int)spelare.y, Color.WHITE);
             
                 // Ritat ut på fönstret
                 Raylib.EndDrawing();
@@ -40,19 +41,19 @@ namespace Bilder
                 // Lyssna på tangenter
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
                 {
-                    spelare.x += 2;
+                    spelare.x += 4;
                 }
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
                 {
-                    spelare.x -= 2;
+                    spelare.x -= 4;
                 }
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN))
                 {
-                    spelare.y += 2;
+                    spelare.y += 4;
                 }
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_UP))
                 {
-                    spelare.y -= 2;
+                    spelare.y -= 4;
                 }
             }
         }
