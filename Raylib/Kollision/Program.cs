@@ -12,7 +12,7 @@ namespace Kollision
             Raylib.SetTargetFPS(60);
 
             // Några variabler
-            int hastighet = 2;
+            int hastighet = 5;
             Random generator = new Random();
             int poäng = 0;
             int timer = 0;
@@ -38,6 +38,7 @@ namespace Kollision
                 // Avbryt spelet efter 60 sek
                 if (timer > 1000)
                 {
+                    Raylib.ClearBackground(Color.DARKBLUE);
                     Raylib.DrawText("Game Over", 100, 200, 100, Color.GOLD);
                     
                     // Ritat ut på fönstret
