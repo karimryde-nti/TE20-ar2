@@ -13,10 +13,9 @@ namespace Dodgers
             const int fönsterB = 800;
             const int fönsterH = 600;
 
-            Raylib.InitWindow(fönsterB, fönsterH, "Snöflingor");
+            Raylib.InitWindow(fönsterB, fönsterH, "Dodgers");
             Raylib.SetTargetFPS(60);
 
-            // TODO: Infoga variabler och objekt här
             // Game state variabler
             int poäng = 0;
             int liv = 3;
