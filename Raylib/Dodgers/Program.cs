@@ -5,27 +5,28 @@ namespace Dodgers
 {
     class Program
     {
+        static int fönsterB = 800;
+        static int fönsterH = 600;
+        static Random generator = new Random();
+        static Rectangle mynt1 = new Rectangle(400, 0, 50, 50);
+        static Rectangle mynt2 = new Rectangle(400, 0, 50, 50);
+        static Rectangle monster = new Rectangle(400, 0, 50, 50);
+        static Rectangle spelare = new Rectangle(100, fönsterH - 50, 100, 10);
+        static int poäng = 0;
+        static int liv = 3;
+
         static void Main(string[] args)
         {
             // Initialisering
             //--------------------------------------------------------------------------------------
-            const int fönsterB = 800;
-            const int fönsterH = 600;
 
             Raylib.InitWindow(fönsterB, fönsterH, "Dodgers");
             Raylib.SetTargetFPS(60);
 
             // Game state variabler
-            int poäng = 0;
-            int liv = 3;
             float tid = 0;
             int hastighet = 1;
 
-            Random generator = new Random();
-            Rectangle mynt1 = new Rectangle(400, 0, 50, 50);
-            Rectangle mynt2 = new Rectangle(400, 0, 50, 50);
-            Rectangle monster = new Rectangle(400, 0, 50, 50);
-            Rectangle spelare = new Rectangle(100, fönsterH - 50, 100, 10);
             //--------------------------------------------------------------------------------------
 
             // Animationsloopen
@@ -41,61 +42,13 @@ namespace Dodgers
                 }
 
                 // Hastigheter och nedre gräns
-                mynt1.y += hastighet;
-                if (mynt1.y > fönsterH)
-                {
-                    mynt1.y = -100;
-                    mynt1.x = generator.Next(0, fönsterB);
-                }
-                mynt2.y += hastighet;
-                if (mynt2.y > fönsterH)
-                {
-                    mynt2.y = -100;
-                    mynt2.x = generator.Next(0, fönsterB);
-                }
-                monster.y += hastighet;
-                if (monster.y > fönsterH)
-                {
-                    monster.y = -100;
-                    monster.x = generator.Next(0, fönsterB);
-                }
+                Hastigheter(hastighet);
 
                 // Lyssna på tangenter
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
-                {
-                    if (spelare.x > 0)
-                    {
-                        spelare.x -= 3;
-                    }
-                }
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
-                {
-                    if (spelare.x < fönsterB - 100)
-                    {
-                        spelare.x += 3;
-                    }
-                }
+                Input();
 
-                // Om spelaren träffar ett mynt
-                if (Raylib.CheckCollisionRecs(spelare, mynt1))
-                {
-                    mynt1.y = 0;
-                    mynt1.x = generator.Next(0, fönsterB);
-                    poäng += 5;
-                }
-                if (Raylib.CheckCollisionRecs(spelare, mynt2))
-                {
-                    mynt2.y = 0;
-                    mynt2.x = generator.Next(0, fönsterB);
-                    poäng += 5;
-                }
-                // Om spelaren träffar ett monster
-                if (Raylib.CheckCollisionRecs(spelare, monster))
-                {
-                    monster.y = 0;
-                    monster.x = generator.Next(0, fönsterB);
-                    liv--;
-                }
+                // Kollisioner
+                Kollisioner();
                 //----------------------------------------------------------------------------------
 
                 // Rita
@@ -111,6 +64,70 @@ namespace Dodgers
 
                 Raylib.EndDrawing();
                 //----------------------------------------------------------------------------------
+            }
+        }
+
+        static void Input()
+        {
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
+            {
+                if (spelare.x > 0)
+                {
+                    spelare.x -= 3;
+                }
+            }
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
+            {
+                if (spelare.x < fönsterB - 100)
+                {
+                    spelare.x += 3;
+                }
+            }
+        }
+
+        static void Hastigheter(int hastighet)
+        {
+            mynt1.y += hastighet;
+            if (mynt1.y > fönsterH)
+            {
+                mynt1.y = -100;
+                mynt1.x = generator.Next(0, fönsterB);
+            }
+            mynt2.y += hastighet;
+            if (mynt2.y > fönsterH)
+            {
+                mynt2.y = -100;
+                mynt2.x = generator.Next(0, fönsterB);
+            }
+            monster.y += hastighet;
+            if (monster.y > fönsterH)
+            {
+                monster.y = -100;
+                monster.x = generator.Next(0, fönsterB);
+            }
+        }
+
+        static void Kollisioner()
+        {
+            // Om spelaren träffar ett mynt
+            if (Raylib.CheckCollisionRecs(spelare, mynt1))
+            {
+                mynt1.y = 0;
+                mynt1.x = generator.Next(0, fönsterB);
+                poäng += 5;
+            }
+            if (Raylib.CheckCollisionRecs(spelare, mynt2))
+            {
+                mynt2.y = 0;
+                mynt2.x = generator.Next(0, fönsterB);
+                poäng += 5;
+            }
+            // Om spelaren träffar ett monster
+            if (Raylib.CheckCollisionRecs(spelare, monster))
+            {
+                monster.y = 0;
+                monster.x = generator.Next(0, fönsterB);
+                liv--;
             }
         }
     }
